@@ -3,7 +3,7 @@ name: Maven release, tag, publish to Maven Central
 on:
   push:
     branches:
-      - main
+      # - main
       - tech/essai-release
 
 jobs:
@@ -34,25 +34,26 @@ jobs:
           git commit -m "Updated version in pom.xml"
           git push
 
-      - name: Create Git Tag
-        run: |
-          export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
-          git config user.name my-bot-user
-          git config user.email my-bot-user@email.com
-          git tag -a $version -m "$version"
-          git push origin $version
+      #- name: Create Git Tag
+      #  run: |
+      #    export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+      #    git config user.name my-bot-user
+      #    git config user.email my-bot-user@email.com
+      #    git tag -a $version -m "$version"
+      #    git push origin $version
 
       - name: Build artifact
         run: mvn clean package -Prelease
 
-      - name: Create release
+      - name: Create Release
         uses: ncipollo/release-action@v1.10.0
         with:
           allowUpdates: true
           artifactErrorsFailBuild: true
           artifacts: "${{ github.workspace }}/target/*.jar"
-          commit: "main"
-          #tag: "v$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout')"
+          # commit: "main" TODO Change this
+          commit: "tech/essai-release"
+          tag: "v$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout')"
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to the Maven Central Repository
