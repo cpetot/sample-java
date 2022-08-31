@@ -27,8 +27,9 @@ jobs:
 
       - name: Increment to stable version
         run: |
-          currentSnapshotVersion=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
-          export version=$currentSnapshotVersion.split(-SNAPSHOT)[0]          
+          export currentSnapshotVersion=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "version=currentSnapshotVersion" >> $GITHUB_ENV
+          export version=${{ env.version }}.split('-SNAPSHOT')[0]          
           echo "version=$version" >> $GITHUB_ENV
           
           ./mvnw build-helper:parse-version versions:set -DnewVersion=$version versions:commit
