@@ -3,8 +3,7 @@ name: Release and publish
 on:
   push:
     branches:
-      # - main
-      - tech/essai-release
+      - main
 
 jobs:
   publish:
