@@ -3,7 +3,7 @@ name: Release and publish
 on:
   push:
     branches:
-      - fix/publish-condition
+      - main
 
 jobs:
   publish:
@@ -38,7 +38,7 @@ jobs:
           echo "version=$version" >> $GITHUB_ENV
           echo "Release version is '$version'" >> $GITHUB_STEP_SUMMARY
 
-      - name: Maven set release and build
+      - name: Maven set version and build
         run: |
           ./mvnw build-helper:parse-version versions:set -DnewVersion=$version versions:commit
           git config user.name github-actions[bot]
