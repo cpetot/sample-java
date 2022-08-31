@@ -34,13 +34,13 @@ jobs:
           git commit -m "Updated version in pom.xml"
           git push
 
-      #- name: Create Git Tag
-      #  run: |
-      #    export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
-      #    git config user.name my-bot-user
-      #    git config user.email my-bot-user@email.com
-      #    git tag -a $version -m "$version"
-      #    git push origin $version
+      - name: Create Git Tag
+        run: |
+          export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+          git config user.name my-bot-user
+          git config user.email my-bot-user@email.com
+          git tag -a $version -m "$version"
+          git push origin $version
 
       - name: Build artifact
         run: mvn clean package -Prelease
@@ -52,7 +52,7 @@ jobs:
           artifactErrorsFailBuild: true
           artifacts: "${{ github.workspace }}/target/*.jar"
           # commit: "main" TODO Change this
-          commit: "tech/essai-release"
+          # commit: "tech/essai-release"
           tag: "v$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout')"
           token: ${{ secrets.GITHUB_TOKEN }}
 
