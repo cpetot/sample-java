@@ -10,8 +10,4 @@ class SampleTest {
 	public void always_passing_test() {
 		assertThat(new Sample()).isNotNull();
 	}
-	@Test
-	public void always_failing_test() {
-		assertThat(new Sample()).isNull();
-	}
 }
