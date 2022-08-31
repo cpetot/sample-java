@@ -37,7 +37,7 @@ jobs:
         run: |
           version=$(echo ${{ env.currentVersion }} | cut -d- -f1)
           echo "version=$version" >> $GITHUB_ENV
-          echo "Release version is '$currentVersion'" >> $GITHUB_STEP_SUMMARY
+          echo "Release version is '$version'" >> $GITHUB_STEP_SUMMARY
 
       - name: Maven set release version & tag
         run: |
