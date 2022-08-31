@@ -30,17 +30,17 @@ jobs:
           export currentVersion=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
           export version=$(echo $currentVersion) | cut -d\  -f1
           echo "currentVersion=$currentVersion" >> $GITHUB_ENV
+          echo "Current version is '$currentVersion'" >> $GITHUB_STEP_SUMMARY
 
       - name: Determine release version
         id: set-release-version
         run: |
           version=$(echo ${{ env.currentVersion }} | cut -d- -f1)
           echo "version=$version" >> $GITHUB_ENV
+          echo "Release version is '$currentVersion'" >> $GITHUB_STEP_SUMMARY
 
       - name: Maven set release version & tag
         run: |
-          echo "currentVersion $currentVersion - release version $version" >> $GITHUB_STEP_SUMMARY
-          
           ./mvnw build-helper:parse-version versions:set -DnewVersion=$version versions:commit
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
@@ -76,6 +76,7 @@ jobs:
         run: |
           ./mvnw build-helper:parse-version versions:set -DnextSnapshot=true versions:commit
           export newSnapshotVersion=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "Next version is '$newSnapshotVersion'" >> $GITHUB_STEP_SUMMARY
           
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
