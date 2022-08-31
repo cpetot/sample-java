@@ -52,7 +52,7 @@ jobs:
           allowUpdates: true
           artifacts: "${{ github.workspace }}/target/*.jar"
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "${{ version }}"
+          tag: "${{ env.version }}"
 
       - name: Publish to the Maven Central Repository
         run: |
