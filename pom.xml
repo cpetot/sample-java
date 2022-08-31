@@ -6,7 +6,7 @@
 
 	<groupId>io.github.cpetot</groupId>
 	<artifactId>sample-java</artifactId>
-	<version>0.1.11-SNAPSHOT</version>
+	<version>0.1.12</version>
 
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A brief description</description>
