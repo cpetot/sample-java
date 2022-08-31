@@ -28,7 +28,7 @@ jobs:
       - name: Increment to stable version
         run: |
           export currentVersion=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
-          export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout) | cut -d- -f1
+          export version=$(echo $currentVersion) | cut -d- -f1
           echo "currentVersion=currentVersion" >> $GITHUB_ENV
           echo "version=$version" >> $GITHUB_ENV
           echo "currentVersion $currentVersion - release version $version" >> $GITHUB_STEP_SUMMARY
