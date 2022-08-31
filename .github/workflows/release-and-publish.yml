@@ -25,28 +25,21 @@ jobs:
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
-      - name: Determine stable version
-        id: choose-version
-        uses: actions/github-script@0.9.0
-        with:
-          script: |
-            const version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout) | cut -d- -f1
-            core.setOutput('version', version)
-
       - name: Increment to stable version
         run: |
-          ./mvnw build-helper:parse-version versions:set -DnewVersion=${{steps.choose-version.outputs.version}} versions:commit
+          export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout) | cut -d- -f1 >> $GITHUB_ENV
+          ./mvnw build-helper:parse-version versions:set -DnewVersion=$version versions:commit
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add .
-          git commit -m "Create stable version ${{steps.choose-version.outputs.version}}"
+          git commit -m "Create stable version version"
           git push
 
       - name: Create Git Tag
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git tag -a $version -m "${{steps.choose-version.outputs.version}}"
+          git tag -a $version -m "${{ env.version }}"
           git push origin $version
 
       - name: Build artifact
