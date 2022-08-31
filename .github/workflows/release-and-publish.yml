@@ -27,7 +27,8 @@ jobs:
 
       - name: Increment to stable version
         run: |
-          export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout) | cut -d- -f1 >> $GITHUB_ENV
+          export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout) | cut -d- -f1
+          echo "version=$version" >> $GITHUB_ENV
           ./mvnw build-helper:parse-version versions:set -DnewVersion=$version versions:commit
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
