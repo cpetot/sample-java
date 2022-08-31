@@ -53,7 +53,7 @@ jobs:
           artifacts: "${{ github.workspace }}/target/*.jar"
           # commit: "main" TODO Change this
           # commit: "tech/essai-release"
-          tag: "v$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout')"
+          # tag: "v$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout')"
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to the Maven Central Repository
