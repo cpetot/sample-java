@@ -3,7 +3,7 @@ name: Release and publish
 on:
   push:
     branches:
-      - main
+      - fix/publish-condition
 
 jobs:
   publish:
@@ -61,7 +61,7 @@ jobs:
           tag: "${{ env.version }}"
 
       - name: Publish to the Maven Central Repository
-        if: "${{ secrets.PUBLISH_ON_MAVEN_CENTRAL == 'true' }}"
+        if: "${{ env.PUBLISH_ON_MAVEN_CENTRAL == 'true' }}"
         run: |
           mvn \
             --no-transfer-progress \
@@ -71,6 +71,7 @@ jobs:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+          PUBLISH_ON_MAVEN_CENTRAL: ${{ secrets.PUBLISH_ON_MAVEN_CENTRAL }}
 
       - name: Create next SNAPSHOT
         run: |
