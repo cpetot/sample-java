@@ -7,7 +7,7 @@ on:
       - tech/essai-release
 
 jobs:
-  stable-version:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -52,7 +52,7 @@ jobs:
           allowUpdates: true
           artifacts: "${{ github.workspace }}/target/*.jar"
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "$version"
+          tag: "echo $version"
 
       - name: Publish to the Maven Central Repository
         run: |
