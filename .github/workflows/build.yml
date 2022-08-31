@@ -19,5 +19,6 @@ jobs:
 
       - name: Publish Test Report
         uses: scacap/action-surefire-report@v1
+        if: ${{ always() }} # Even if build fails
         with:
           fail_on_test_failures: true
