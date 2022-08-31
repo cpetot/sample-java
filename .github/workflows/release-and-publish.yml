@@ -61,6 +61,7 @@ jobs:
           tag: "${{ env.version }}"
 
       - name: Publish to the Maven Central Repository
+        if: "${{ secrets.PUBLISH_ON_MAVEN_CENTRAL == 'true' }}"
         run: |
           mvn \
             --no-transfer-progress \
