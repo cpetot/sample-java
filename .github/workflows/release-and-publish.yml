@@ -47,8 +47,8 @@ jobs:
           git add .
           git commit -m "Create stable version version"
           git push
-          git tag -a $version -m "${{ env.version }}"
-          git push origin $version
+          git tag -a ${{ env.version }} -m "${{ env.version }}"
+          git push origin ${{ env.version }}
 
       - name: Build artifact
         run: mvn clean package -Prelease
