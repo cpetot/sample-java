@@ -13,7 +13,7 @@ This project contains all mandatory Maven informations to be publicated on Maven
 ###### Gradle
 
 ```
-implementation 'io.github.cpetot:sample-java:0.1-SNAPSHOT'
+implementation 'io.github.cpetot:sample-java:0.2'
 ```
 
 ###### Maven
@@ -23,8 +23,9 @@ implementation 'io.github.cpetot:sample-java:0.1-SNAPSHOT'
 <dependency>
 	<groupId>io.github.cpetot</groupId>
 	<artifactId>sample-java</artifactId>
-	<version>0.1-SNASPHOT</version>
+	<version>0.2</version>
 </dependency>
 ```
 
-#### Usage
+## CI
+The CI is described in the [following documentation](docs/CI.md)
