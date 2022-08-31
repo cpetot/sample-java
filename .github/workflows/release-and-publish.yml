@@ -37,6 +37,7 @@ jobs:
       - name: Create Git Tag
         run: |
           export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "version=$version" >> $GITHUB_ENV
           git config user.name my-bot-user
           git config user.email my-bot-user@email.com
           git tag -a $version -m "$version"
@@ -51,6 +52,7 @@ jobs:
           allowUpdates: true
           artifacts: "${{ github.workspace }}/target/*.jar"
           token: ${{ secrets.GITHUB_TOKEN }}
+          tag: $version
 
       - name: Publish to the Maven Central Repository
         run: |
